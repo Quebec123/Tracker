@@ -3,7 +3,7 @@
 //
 
 #include "Stepper_Motor.h"
-
+//przede wszyutkim inicjalizacja
 Stepper_Motor::Stepper_Motor(int step_pin, int dir_pin, int limit) {
     pinMode(step_pin, OUTPUT);
     pinMode(dir_pin, OUTPUT);
@@ -14,17 +14,18 @@ Stepper_Motor::Stepper_Motor(int step_pin, int dir_pin, int limit) {
     stepper.setAccelerationInStepsPerSecondPerSecond(100);
     calibrate();
 }
-
+//powoli się rusza do momentu aż nie złapie krańcówki
 void Stepper_Motor::calibrate() {
     while(digitalRead(limit_pin) == LOW) {
-        stepper.moveRelativeInSteps(10);
+        stepper.moveRelativeInSteps(5);
     }
 }
+//rusza sie w odpowiednią stronę w zależnośći co tracker wyopluje
 void Stepper_Motor::move(String position) {
-    if (position == "WEST"){
+    if (position == "WEST" || position == "SOUTH"){
         stepper.moveRelativeInSteps(10);
     }
-    if (position == "EAST"){
+    if (position == "EAST" || position == "NORTH"){
         stepper.moveRelativeInSteps(-10);
     }
 

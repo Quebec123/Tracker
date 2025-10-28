@@ -3,9 +3,9 @@
 //
 
 #include "active_tracker.h"
-
+//inicjalizacja zmiennych głównie
 active_tracker::active_tracker( int west, int south, int east, int north) {
-    pins[0] = west;
+    pins[0] = west; //tablica pinów
     pins[1] = south;
     pins[2] = east;
     pins[3] = north;
@@ -15,8 +15,8 @@ active_tracker::active_tracker( int west, int south, int east, int north) {
     pinMode(north, INPUT);
 
 }
-
-void active_tracker::read_values() {
+//to czyta wartości i uśrednia. Dodatkowo odejmuje wartości jako kalibracje
+void active_tracker::read_values() { //wartości w tablicy values są tgakie same jak w pins
     for (int i = 0; i < 4; i++) {
         values[i] = 0;
     }
@@ -31,8 +31,9 @@ void active_tracker::read_values() {
     values[0] -= West_calibration;
     values[1] -= South_calibration;
 }
-
+//to czyta wartości i poprównuje z akceptowanym limitem i zwaraca jeżeli poza
 String active_tracker::estimate_direction_West_East() {
+    read_values();
     int west_value = values[0];
     int east_value = values[2];
 
@@ -45,8 +46,9 @@ String active_tracker::estimate_direction_West_East() {
     }
 
 }
-
+//to samo cow yjej ale dla drugiej osi
 String active_tracker::estimate_direction_North_South() {
+    read_values();
     int north_value = values[3];
     int south_value = values[1];
 
@@ -59,7 +61,7 @@ String active_tracker::estimate_direction_North_South() {
     }
 
 }
-
+//to był pomysł ale zbyt skomplikowany, żeby go kontynuować
 int active_tracker::movement_command() {
     read_values();
     String horizontal_direction = estimate_direction_West_East();
