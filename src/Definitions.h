@@ -15,4 +15,10 @@ const int South_calibration = 1640;
 
 const int West_East_Threshold = 100;
 const int North_South_Threshold = 100;
+
+const int West_East_Step = 10;
+const int West_East_Dir = 1;
+const int West_East_limit = 2;
+
+const int North_South_Step = 10;
 #endif //TRACKER_DEFINITIONS_H
