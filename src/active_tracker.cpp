@@ -3,67 +3,66 @@
 //
 
 #include "active_tracker.h"
-//inicjalizacja zmiennych głównie
-active_tracker::active_tracker( int west, int south, int east, int north) {
-    pins[0] = west; //tablica pinów
-    pins[1] = south;
-    pins[2] = east;
-    pins[3] = north;
-    pinMode(west, INPUT);
-    pinMode(south, INPUT);
-    pinMode(east, INPUT);
-    pinMode(north, INPUT);
 
+//inicjalizacja zmiennych głównie
+#include "active_tracker.h"
+
+active_tracker::active_tracker(int west, int south, int east, int north)
+        : west_pin(west), south_pin(south), east_pin(east), north_pin(north),
+          west_value(0), south_value(0), east_value(0), north_value(0) {
+    pinMode(west_pin, INPUT);
+    pinMode(south_pin, INPUT);
+    pinMode(east_pin, INPUT);
+    pinMode(north_pin, INPUT);
 }
-//to czyta wartości i uśrednia. Dodatkowo odejmuje wartości jako kalibracje
-void active_tracker::read_values() { //wartości w tablicy values są tgakie same jak w pins
-    for (int i = 0; i < 4; i++) {
-        values[i] = 0;
-    }
+
+void active_tracker::read_values() {
+    west_value = 0;
+    south_value = 0;
+    east_value = 0;
+    north_value = 0;
+
     for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 4; j++) {
-            values[j] += analogRead(pins[j]);
-        }
+        west_value += analogRead(west_pin);
+        south_value += analogRead(south_pin);
+        east_value += analogRead(east_pin);
+        north_value += analogRead(north_pin);
     }
-    for (int i = 0; i < 4; i++) {
-        values[i] /= 10;
-    }
-    values[0] -= West_calibration;
-    values[1] -= South_calibration;
+
+    west_value /= 10;
+    south_value /= 10;
+    east_value /= 10;
+    north_value /= 10;
+
+    west_value -= West_calibration;
+    south_value -= South_calibration;
 }
-//to czyta wartości i poprównuje z akceptowanym limitem i zwaraca jeżeli poza
+
 String active_tracker::estimate_direction_West_East() {
     read_values();
-    int west_value = values[0];
-    int east_value = values[2];
 
     if (west_value - east_value > West_East_Threshold) {
         return "WEST";
     } else if (east_value - west_value > West_East_Threshold) {
-        return "EAST";}
-    else {
+        return "EAST";
+    } else {
         return "CENTER";
     }
-
 }
-//to samo cow yjej ale dla drugiej osi
+
 String active_tracker::estimate_direction_North_South() {
     read_values();
-    int north_value = values[3];
-    int south_value = values[1];
 
     if (north_value - south_value > North_South_Threshold) {
         return "NORTH";
     } else if (south_value - north_value > North_South_Threshold) {
-        return "SOUTH";}
-    else {
+        return "SOUTH";
+    } else {
         return "CENTER";
     }
-
 }
 //to był pomysł ale zbyt skomplikowany, żeby go kontynuować
 int active_tracker::movement_command() {
-    read_values();
     String horizontal_direction = estimate_direction_West_East();
     String vertical_direction = estimate_direction_North_South();
 

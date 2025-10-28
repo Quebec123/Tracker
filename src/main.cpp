@@ -2,9 +2,12 @@
 #include "Definitions.h"
 #include "Stepper_Motor.h"
 #include "active_tracker.h"
-Stepper_Motor Motor_West_East(West_East_Step, West_East_Dir, West_East_limit);
+AccelStepper West_East_Stepper(AccelStepper::DRIVER, West_East_Step, West_East_Dir);
+AccelStepper North_South_Stepper(AccelStepper::DRIVER, North_South_Step, North_South_Dir);
+
+Stepper_Motor Motor_West_East(West_East_Stepper, West_East_limit);
 active_tracker tracker(WEST_PIN, SOUTH_PIN, EAST_PIN, NORTH_PIN);
-Stepper_Motor Motor_North_South(North_South_Step, North_South_Dir, North_South_limit);
+Stepper_Motor Motor_North_South(North_South_Stepper, North_South_limit);
 void setup() {
     Serial.begin(9600);
 }

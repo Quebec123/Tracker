@@ -6,14 +6,14 @@
 #define TRACKER_STEPPER_MOTOR_H
 #include "Arduino.h"
 #include "Definitions.h"
-#include "ESP_FlexyStepper.h"
+#include <AccelStepper.h>
 
 class Stepper_Motor {
     int limit_pin;
     void calibrate();
-    ESP_FlexyStepper stepper;
+    AccelStepper stepper;
 public:
-    Stepper_Motor(int step_pin, int dir_pin, int limit);
+    Stepper_Motor(AccelStepper motor, int limit_pin);
     void move(String position);
 };
 

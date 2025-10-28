@@ -25,5 +25,4 @@ const int North_South_Dir = 4;
 const int North_South_limit = 5;
 
 const int PWM = 6;
-const int PWM
 #endif //TRACKER_DEFINITIONS_H
