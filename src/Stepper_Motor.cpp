@@ -25,7 +25,7 @@ void Stepper_Motor::move(String position) {
         stepper.run();
     }
     if (position == "EAST" || position == "NORTH"){
-        stepper.move(1000);
+        stepper.move(-1000);
         stepper.run();
     }
 
