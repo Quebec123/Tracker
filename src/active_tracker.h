@@ -15,6 +15,7 @@ public:
     String estimate_direction_West_East();
     String estimate_direction_North_South();
     int movement_command();
+    void print_values();
 private:
     int west_pin, south_pin, east_pin, north_pin;
     int west_value, south_value, east_value, north_value;

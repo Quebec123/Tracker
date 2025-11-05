@@ -10,11 +10,11 @@
 
 class Stepper_Motor {
     int limit_pin;
-    void calibrate();
     AccelStepper stepper;
 public:
     Stepper_Motor(AccelStepper motor, int limit_pin);
     void move(String position);
+    void calibrate();
 };
 
 

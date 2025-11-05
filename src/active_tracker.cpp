@@ -36,8 +36,21 @@ void active_tracker::read_values() {
 
     west_value -= West_calibration;
     south_value -= South_calibration;
+    east_value -= East_calibration;
+    north_value -= North_calibration;
 }
 
+void active_tracker::print_values() {
+    read_values();
+    Serial.print("West: ");
+    Serial.print(west_value);
+    Serial.print(" South: ");
+    Serial.print(south_value);
+    Serial.print(" East: ");
+    Serial.print(east_value);
+    Serial.print(" North: ");
+    Serial.println(north_value);
+}
 String active_tracker::estimate_direction_West_East() {
     read_values();
 
