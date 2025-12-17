@@ -15,6 +15,7 @@ public:
     Stepper_Motor(AccelStepper motor, int limit_pin);
     void move(String position);
     void calibrate();
+    void Hall_sensor_read();
 };
 
 
