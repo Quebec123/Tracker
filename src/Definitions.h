@@ -23,8 +23,8 @@ const int North_calibration =  120;
 const int West_East_Threshold = 300; //jaki próg żeby się ruszył
 const int North_South_Threshold = 300;
 
-const int West_East_Step = 25; //piny na jeden stepujący silnik
-const int West_East_Dir = 2;
+const int West_East_Step = 26; //piny na jeden stepujący silnik
+const int West_East_Dir = 25;
 const int West_East_limit = 15; // to ma pulldown
 
 const int North_South_Step = 4; //piny na jeden stepujący silnik
