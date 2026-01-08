@@ -27,8 +27,8 @@ const int West_East_Step = 26; //piny na jeden stepujący silnik
 const int West_East_Dir = 25;
 const int West_East_limit = 15; // to ma pulldown
 
-const int North_South_Step = 4; //piny na jeden stepujący silnik
-const int North_South_Dir = 12;
+const int North_South_Step = 5; //piny na jeden stepujący silnik
+const int North_South_Dir = 2;
 const int North_South_limit = 15; // to ma pulldown
 
 const int PWM = 6;
